@@ -27,12 +27,12 @@ app.get('/talker', async (req, res) => {
 app.get('/talker/:id', async (req, res) => {
   const talker = await readJson();
   const { id } = req.params;
-  let talkerID;
-  talker.forEach((el) => {
+  const talkerID = talker.reduce((acc, el) => {
     if (el.id === +id) {
-      talkerID = el;
+      return el;
     }
-  });
+    return acc;
+  }, null);
   if (!talkerID) {
     res.status(404).json({
       message: 'Pessoa palestrante não encontrada',

@@ -2,6 +2,8 @@ const express = require('express');
 
 const { v4: uuidv4 } = require('uuid');
 
+const { emailTest, passwordTest } = require('./middlewares/loginAndPasswordValidation');
+
 const { readJson } = require('./talkers');
 
 const app = express();
@@ -44,7 +46,7 @@ app.get('/talker/:id', async (req, res) => {
   res.status(200).json(talkerID);
 });
 
-app.post('/login', (req, res) => {
+app.post('/login', emailTest, passwordTest, (req, res) => {
   const uuid = uuidv4();
   let token = '';
   for (let i = 0; i < uuid.length; i += 1) {

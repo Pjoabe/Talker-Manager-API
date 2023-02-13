@@ -7,4 +7,10 @@ const readJson = async () => {
     return data;
 };
 
-module.exports = { readJson };
+const pushNewData = async (newFile) => {
+  const data = await readJson();
+  data.push(newFile);
+  await fs.writeFile('src/talker.json', JSON.stringify(data));
+};
+
+module.exports = { readJson, pushNewData };

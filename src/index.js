@@ -4,7 +4,11 @@ const { v4: uuidv4 } = require('uuid');
 
 const { emailTest, passwordTest } = require('./middlewares/loginAndPasswordValidation');
 
-const { readJson } = require('./talkers');
+const { readJson, pushNewData } = require('./talkers');
+
+const { 
+  testToken, testName, testAge, testTalk, testWatchedAt, testRate,
+} = require('./middlewares/talkerAllValidations');
 
 const app = express();
 
@@ -58,4 +62,14 @@ app.post('/login', emailTest, passwordTest, (req, res) => {
     }
   }
   res.status(200).json({ token });
+});
+
+app.post('/talker', testToken, testName, testAge, testTalk, testWatchedAt,
+testRate, 
+  async (req, res) => {
+    const { name, age, talk } = req.body;
+  const file = await readJson();
+  const newData = { id: (file.length += 1), name, age, talk };
+  await pushNewData(newData);
+  res.status(201).json(newData); 
 });

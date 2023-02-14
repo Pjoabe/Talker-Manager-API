@@ -13,4 +13,8 @@ const pushNewData = async (newFile) => {
   await fs.writeFile('src/talker.json', JSON.stringify(data));
 };
 
-module.exports = { readJson, pushNewData };
+const removeTalker = async (file) => {
+  await fs.writeFile('src/talker.json', JSON.stringify(file));
+};
+
+module.exports = { readJson, pushNewData, removeTalker };

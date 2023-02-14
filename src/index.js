@@ -4,7 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 
 const { emailTest, passwordTest } = require('./middlewares/loginAndPasswordValidation');
 
-const { readJson, pushNewData } = require('./talkers');
+const { readJson, pushNewData, removeTalker } = require('./talkers');
 
 const { 
   testToken, testName, testAge, testTalk, testWatchedAt, testRate,
@@ -88,4 +88,12 @@ testWatchedAt, testRate, async (req, res) => {
   const newData = { ...talkerID, talk: { ...talk }, name, age };
   await pushNewData(newData);
   res.status(200).json(newData);
+});
+
+app.delete('/talker/:id', testToken, async (req, res) => {
+  const { id } = req.params;
+  const data = await readJson();
+  const talkerFiltered = data.filter((obj) => obj.id !== +id);
+  await removeTalker(talkerFiltered);
+  res.status(204).json();
 });

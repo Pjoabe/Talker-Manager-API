@@ -73,3 +73,19 @@ testRate,
   await pushNewData(newData);
   res.status(201).json(newData); 
 });
+
+app.put('/talker/:id', testToken, testTalk, testName, testAge, 
+testWatchedAt, testRate, async (req, res) => {
+  const { id } = req.params;
+  const { age, talk, name } = req.body;
+  const data = await readJson();
+  const talkerID = data.reduce((acc, e) => {
+    if (e.id === +id) {
+      return e;
+    }
+    return acc;
+  }, null);
+  const newData = { ...talkerID, talk: { ...talk }, name, age };
+  await pushNewData(newData);
+  res.status(200).json(newData);
+});

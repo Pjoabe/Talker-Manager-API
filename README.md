@@ -34,4 +34,4 @@ Para instalar este projeto na sua máquina localmente siga estes passos
   docker exec -it talker_manager bash && 
   npm run dev
 ```
-4. Demais comandos podem ser encontrados no package.json
+4. Outros comandos podem ser encontrados no package.json

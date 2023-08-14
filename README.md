@@ -27,7 +27,7 @@ Para instalar este projeto na sua máquina localmente siga estes passos
 ```
   npm install
 ```
-3. Execute o docker-compose && entre no terminal
+3. Execute o docker-compose e entre no terminal
 
 ```
   docker-compose up -d &&
